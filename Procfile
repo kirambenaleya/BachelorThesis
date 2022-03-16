@@ -1,1 +1,1 @@
-web: python team_formation
+web: web: gunicorn team_formation.py
