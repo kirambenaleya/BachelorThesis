@@ -1,1 +1,1 @@
-web: gunicorn team_formation.py
+web: sh setup.sh && streamlit run team_formation.py
