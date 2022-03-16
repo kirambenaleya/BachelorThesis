@@ -1,1 +1,1 @@
-worker: python team_formation
+web: python team_formation
