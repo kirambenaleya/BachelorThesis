@@ -1,1 +1,1 @@
-worker: python team_formation.py
+worker: python team_formation
