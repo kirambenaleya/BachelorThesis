@@ -15,7 +15,7 @@ cffi==1.15.0
 charset-normalizer==2.0.12
 click==8.0.4
 colorama==0.4.4
-coverage @ file:///C:/ci/coverage_1645521121247/work
+#coverage @ file:///C:/ci/coverage_1645521121247/work
 cycler @ file:///tmp/build/80754af9/cycler_1637851556182/work
 debugpy==1.5.1
 decorator==5.1.1
