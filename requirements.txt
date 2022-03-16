@@ -50,5 +50,4 @@ idna
 jinja2
 uritemplate
 cryptography
-openssl
-zlib
+pyopenssl
