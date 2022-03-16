@@ -15,6 +15,7 @@ from AlgorithmTeamFormation.optimize.swap_best_worst import *
 
 def team_formation_algorithm(delimiter, maximum_per_group, student_data, weights=None):
     if weights is None:
+        # TODO: Determine weights based on ranking made by students of prior year
         weights = [0.4, 0.3, 0.1, 0.1, 0.1]
 
     # Import and clean up data
@@ -107,24 +108,27 @@ def team_formation_algorithm(delimiter, maximum_per_group, student_data, weights
             pt -= step_size
             attempt = attempt.first
 
-    swap = try_swapping_best_worst(group_configuration, find_lowest(group_configuration),
-                                   find_highest(group_configuration),
-                                   weights)
-    if swap == -1:
-        index_highest = find_highest(group_configuration)
-        index_lowest = find_lowest(group_configuration)
-        second_try = group_configuration[:]
-        del second_try[index_lowest]
-        del second_try[index_highest]
-        swap_try_2 = try_swapping_best_worst(second_try, find_lowest(group_configuration),
-                                             find_highest(group_configuration), weights)
-        if swap_try_2 == -1:
-            pass
+    if not len(group_configuration) <= 4:
+        swap = try_swapping_best_worst(group_configuration, find_lowest(group_configuration),
+                                       find_highest(group_configuration),
+                                       weights)
+        if swap == -1:
+
+            second_try = group_configuration[:]
+            index_lowest = find_lowest(second_try)
+            del second_try[index_lowest]
+            index_highest = find_highest(second_try)
+            del second_try[index_highest]
+
+            swap_try_2 = try_swapping_best_worst(second_try, find_lowest(second_try),
+                                                 find_highest(second_try), weights)
+            if swap_try_2 == -1:
+                pass
+            else:
+                # TODO: Discuss with Eva and implement
+                print("Second try")
         else:
-            # TODO: Discuss with Eva and implement
-            print("Second try")
-    else:
-        print("Success")
+            print("Success")
 
     for index, group in enumerate(group_configuration):
         index_value = index + 1

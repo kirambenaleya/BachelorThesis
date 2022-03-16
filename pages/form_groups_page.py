@@ -23,8 +23,8 @@ def display_form_groups(email, password):
             st.markdown("##")
             send_data = st.checkbox('Submit')
             if send_data:
-                change_status_survey(open_close, email, password, collection=survey)
-                text = str('The survey has been successfully ' + open_close)
+                change_status_survey(open_close, email, password, survey)
+                text = str('The survey has been successfully ' + open_close + 'd.')
                 st.success(text)
         with st.expander('Download the student data and display the computed weights.', expanded=False):
             data_students = read_from_database(email, password, api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
@@ -103,7 +103,7 @@ def display_form_groups(email, password):
                         else:
                             weights = [weight_gender, weight_experience, weight_edu_level, weight_major, weight_attempt]
                         group_config = team_formation_algorithm(delimiter, maximum_per_group, path, weights=weights)
-                        add_group_configuration(group_config, password, email)
+                        add_group_configuration(group_config, password, email, 'Test Config')
                         st.success('The group configuration has been uploaded to the database and can now be viewed.')
                     else:
                         st.warning("Please ensure you are using a .csv file.")

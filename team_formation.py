@@ -1,10 +1,16 @@
+import json
+
+import requests
 import streamlit as st
 import pyrebase
+
+
 from pages.home_page import display_home
 from pages.team_formation_quiz_page import display_team_formation_quiz
 from pages.analyze_data_page import display_analyze_data
 from pages.settings_page import display_settings
 from pages.form_groups_page import display_form_groups
+
 
 st.set_page_config(
     page_title="Algorithmic Team Formation Tool",
@@ -50,31 +56,34 @@ email = st.sidebar.text_input("Please enter your email address")
 password = st.sidebar.text_input("Please enter your password", type='password')
 
 if choice == 'Sign up':
-    handle = st.sidebar.text_input("Please input your app handle name", value="Default")
     submit = st.sidebar.button("Create my account")
 
     if submit:
-        user = auth.create_user_with_email_and_password(email, password)
-        st.success("Your account has been successfully created!")
-        st.balloons()
-
-        # Sign in
-        user = auth.sign_in_with_email_and_password(email, password)
-        db.child(user['localId']).child("Handle").set(handle)
-        db.child(user['localId']).child("ID").set('localId')
-        st.title('Welcome ' + handle + '!')
-        st.info("Login by selecting login from the dropdown menu and entering your data.")
+        try:
+            user = auth.create_user_with_email_and_password(email, password)
+            st.success("Your account has been successfully created!")
+            st.balloons()
+            db.child(user['localId']).child("ID").set('localId')
+            st.title('Welcome!')
+            st.info("Login by selecting login from the dropdown menu and entering your data.")
+        except requests.exceptions.HTTPError as e:
+            error_json = e.args[1]
+            error = json.loads(error_json)['error']['message']
+            st.error(error)
 
 if choice == "Login":
     login = st.sidebar.checkbox('Login / Logout')
     if login:
         user = auth.sign_in_with_email_and_password(email, password)
+
+        # Save the Id-Token and the Refresh-Token to the session state
+        st.session_state['idToken'] = user['idToken']
+        st.session_state['refreshToken'] = user['refreshToken']
+
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
-        # if user.getUid() == 'UZ0PCUlfL0WP1UMMd94ETwjo4JK2':
+
         bio = st.radio('Jump to', ['Home', 'Team Formation Quiz', 'Form Groups', 'Analyze Data', 'Download Code',
                                    'Settings'])
-        # else:
-        # bio = st.radio('Jump to', ['Home', 'Team Formation', 'Own Data', 'Settings'])
 
         if bio == 'Settings':
             display_settings(db, user, storage)

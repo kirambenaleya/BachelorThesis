@@ -10,7 +10,7 @@ from helping_functions import none_all_or_weekdays, transform_ranking_to_weights
 
 
 def display_team_formation_quiz(email, password):
-    matriculation_id = st.text_input("Please enter your matriculation number")
+    matriculation_id = st.text_input("Please enter your matriculation number (e.g. 17-939-083)")
     if matriculation_id:
         password_quiz = st.text_input("Please enter the password provided by the teaching staff.",
                                       key='password_quiz', type='password')
@@ -25,7 +25,8 @@ def display_team_formation_quiz(email, password):
                 course = col2.selectbox('', ['None', 'CSCW FS 22', "CSCW FS 22 Feedback"])
                 if course == 'None':
                     st.text("Please select the survey you would like to answer.")
-                elif course == 'CSCW FS 22' and is_survey_open(email, password):
+                elif course == 'CSCW FS 22' and is_survey_open(email, password) \
+                        and not check_if_survey_answered(matriculation_id, dictionary):
                     if not check_if_survey_answered(matriculation_id, dictionary):
                         st.markdown("##")
                         st.subheader("Personal data")
@@ -227,7 +228,8 @@ def display_team_formation_quiz(email, password):
                                                                       'considered your team\nis made up of: '
                         st.text(message)
                         group = condense_group(group[1])
-                        # TODO: Change this so it works for groups up to 50.
+                        teammate1, teammate1_data, teammate2, teammate2_data = None, None, None, None
+                        teammate3, teammate3_data, teammate4, teammate4_data = None, None, None, None
                         for key, value in group.items():
                             if key == 'Team member 1':
                                 teammate1 = value
@@ -248,16 +250,16 @@ def display_team_formation_quiz(email, password):
                             elif key == "Data":
                                 data = value
                         if teammate1 and teammate1_data:
-                            message = teammate1_data['First Name'] + " " + teammate1_data['Last Name'] + ", (" + teammate1_data['Matriculation Number'] + ")"
+                            message = teammate1_data['First Name'] + " " + teammate1_data['Last Name'] + ", (" + teammate1_data['Matriculation Number'].strip() + ", " + teammate1_data['Email'] + ")"
                             st.text(message)
                         if teammate2 and teammate2_data:
-                            message = teammate2_data['First Name'] + " " + teammate2_data['Last Name'] + ", (" + teammate2_data['Matriculation Number'] + ")"
+                            message = teammate2_data['First Name'] + " " + teammate2_data['Last Name'] + ", (" + teammate2_data['Matriculation Number'].strip() + ", " + teammate2_data['Email'] + ")"
                             st.text(message)
                         if teammate3 and teammate3_data:
-                            message = teammate3_data['First Name'] + " " + teammate3_data['Last Name'] + ", (" + teammate3_data['Matriculation Number'] + ")"
+                            message = teammate3_data['First Name'] + " " + teammate3_data['Last Name'] + ", (" + teammate3_data['Matriculation Number'].strip() + ", " + teammate3_data['Email'] + ")"
                             st.text(message)
                         if teammate4 and teammate4_data:
-                            message = teammate4_data['First Name'] + " " + teammate4_data['Last Name'] + ", (" + teammate4_data['Matriculation Number'] + ")"
+                            message = teammate4_data['First Name'] + " " + teammate4_data['Last Name'] + ", (" + teammate4_data['Matriculation Number'].strip() + ", " + teammate4_data['Email'] + ")"
                             st.text(message)
                         if data:
                             message = 'Your group has an internal group distance of {:.2f}'.format(
@@ -270,39 +272,27 @@ def display_team_formation_quiz(email, password):
                             st.markdown("##")
                             x_coordinates = []
 
-                            for index, value in enumerate(igd_list):
-                                if value == data['igd']:
-                                    index_igd = index
-
-                            for index, value in enumerate(gad_list):
-                                if value == data['gad']:
-                                    index_gad = index
-
                             for index in range(len(group_configuration)):
                                 x_coordinates.append(index + 1)
                             average_igd = sum(igd_list) / len(igd_list)
                             average_gad = sum(gad_list) / len(gad_list)
 
                             fig, ax = plt.subplots()
-                            igd_bars = plt.bar(x_coordinates, igd_list)
-                            if index_igd:
-                                igd_bars[index_igd].set_color('r')
-                            plt.xlabel("Groups")
-                            plt.xticks(x_coordinates, x_coordinates)
-                            plt.axhline(average_igd, color='k', linestyle='--')
-                            plt.ylabel("Value")
-                            plt.figlegend(['Average IGD', 'Internal group distance'], loc='upper right')
+                            plt.hist(igd_list)
+                            plt.xlabel("Internal Group Distance")
+                            plt.axhline(average_igd, color='k', linestyle='-')
+                            plt.axhline(data['igd'], color='r', linestyle='--')
+                            plt.ylabel("Number of Groups")
+                            plt.figlegend(['Average IGD', 'Your Group-IGD'], loc='upper right')
                             st.pyplot(fig)
 
                             fig, ax = plt.subplots()
-                            gad_bars = plt.bar(x_coordinates, gad_list)
-                            if index_gad:
-                                gad_bars[index_gad].set_color('r')
-                            plt.xlabel("Groups")
-                            plt.xticks(x_coordinates, x_coordinates)
-                            plt.axhline(average_gad, color='k', linestyle='--')
-                            plt.ylabel("Value")
-                            plt.figlegend(['Average GAD', 'Group average distance'], loc='upper right')
+                            plt.hist(gad_list)
+                            plt.xlabel("Group Average Distance")
+                            plt.axhline(average_gad, color='k', linestyle='-')
+                            plt.axhline(data['gad'], color='r', linestyle='--')
+                            plt.ylabel("Number of Groups")
+                            plt.figlegend(['Average GAD', 'Your Group-GAD'], loc='upper right')
                             st.pyplot(fig)
                 elif course == 'CSCW FS 22' and not is_survey_open(email, password):
                     st.markdown("##")

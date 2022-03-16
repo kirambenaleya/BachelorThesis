@@ -1,6 +1,7 @@
 # import libraries
 import pandas as pd
 
+from AlgorithmTeamFormation.enums.attempt import Attempt
 from AlgorithmTeamFormation.enums.bachelor import Bachelor
 from AlgorithmTeamFormation.enums.experience import Experience
 from AlgorithmTeamFormation.enums.gender import Gender
@@ -28,7 +29,8 @@ def preprocess_data(filepath, delimiter):
     data.loc[data['Gender'] == 'non binary', 'Gender'] = Gender.nonBinary.value
     data.loc[data['Experience'] == 'no', 'Experience'] = Experience.no.value
     data.loc[data['Experience'] == 'yes', 'Experience'] = Experience.yes.value
-
+    data.loc[data['Attempt'] == 'first', 'Attempt'] = Attempt.first.value
+    data.loc[data['Attempt'] == 'second', 'Attempt'] = Attempt.second.value
     # Loop through the data and convert each student to a dictionary
     for index, row in data.iterrows():
         student = {row['Matriculation Number']: {'ID': row['ID'], 'Name': row['First Name'] + " " + row["Last Name"],
@@ -46,33 +48,33 @@ def preprocess_data(filepath, delimiter):
     # Loop through each item in the list of students
     for item in students:
         # Retrieve the first (and only) key which is equal to the student matriculation number
-        first_key = []
+        matriculation_key = []
         for key in item.keys():
-            first_key.append(key)
-        first_key = first_key[0]
+            matriculation_key.append(key)
+        matriculation_key = matriculation_key[0]
         # Check if the key Teammate has a value assigned to it which is different from '0'
-        if item[first_key]['Teammate'] != '0':
+        if item[matriculation_key]['Teammate'] != '0' and item[matriculation_key]['Teammate'] != 0:
             # Extract the teammate's matriculation number
-            matriculation_number = item[first_key]['Teammate']
+            matriculation_number = item[matriculation_key]['Teammate']
             # Loop through the list of all students
             for student in students:
                 # Check each entry to see if the key is equal to the matriculation_number
-                if student.get(matriculation_number) is not None:
-                    # If the teammate's aren't reciprocal set both values to 0
-                    if student[matriculation_number]['Teammate'] != first_key:
-                        item[first_key]['Teammate'] = 0
+                if student.get(matriculation_number) is not None and student != item:
+                    # If the teammates aren't reciprocal set both values to 0
+                    if student[matriculation_number]['Teammate'] != matriculation_key:
+                        item[matriculation_key]['Teammate'] = 0
                         student[matriculation_number]['Teammate'] = 0
-                    # If the teammate's are reciprocal set both values to the current group number and increase it by 1
+                    # If the teammates are reciprocal set both values to the current group number and increase it by 1
                     else:
-                        item[first_key]['Teammate'] = group_number
+                        item[matriculation_key]['Teammate'] = group_number
                         student[matriculation_number]['Teammate'] = group_number
                         group_number += 1
         else:
             # Convert string '0' to int 0 for the vector in the later steps
-            item[first_key]['Teammate'] = 0
+            item[matriculation_key]['Teammate'] = 0
 
         # Convert the schedule from a string to a list of int values
-        initial_schedule = item[first_key]['Schedule']
+        initial_schedule = item[matriculation_key]['Schedule']
         schedule = []
         for character in initial_schedule:
             if character == '+':
@@ -82,10 +84,11 @@ def preprocess_data(filepath, delimiter):
 
         # Confirm that the list has the right length
         assert (len(schedule) == 21)
-        item[first_key]['Schedule'] = schedule
+        item[matriculation_key]['Schedule'] = schedule
 
         # Confirm that the teammate variable was converted to an int value
-        assert isinstance(item[first_key]['Teammate'], int)
+        if not isinstance(item[matriculation_key]['Teammate'], int):
+            item[matriculation_key]['Teammate'] = 0
 
     # Return the preprocessed data
     return students
