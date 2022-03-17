@@ -447,7 +447,7 @@ def display_team_formation_quiz(email, password):
 
                 elif course == "CSCW FS 22 Initial Feedback":
                     if is_survey_open(email, password, document='CSCW FS 22 Initial Feedback'):
-                        initial_feedback(email, password, dictionary)
+                        initial_feedback(email, password, matriculation_id)
                     else:
                         st.warning("This survey has not been opened yet.")
 

@@ -109,24 +109,27 @@ def add_student_to_database(student, password, email, document, api_key='AIzaSyC
 
 def read_document_from_database(email, password, collection, document,
                                 api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0'):
-    creds = check_for_creds(email, password, api_key)
+    try:
+        creds = check_for_creds(email, password, api_key)
 
-    # Use the raw firestore grpc client instead of building one through firebase_admin
-    db = Client("bachelor-thesis-8464a", creds)
+        # Use the raw firestore grpc client instead of building one through firebase_admin
+        db = Client("bachelor-thesis-8464a", creds)
 
-    # Et voila!
-    # You are now connected to your firestore database and authenticated with the selected firebase user.
-    # All your firestore security rules now apply on this connection and it will behave like a normal client
+        # Et voila!
+        # You are now connected to your firestore database and authenticated with the selected firebase user.
+        # All your firestore security rules now apply on this connection and it will behave like a normal client
 
-    doc_ref = db.collection(collection).document(document)
+        doc_ref = db.collection(collection).document(document)
 
-    doc = doc_ref.get()
-    dictionary = doc.to_dict()
-    if doc.exists:
-        print(u'Document data has been returned!')
-        return dictionary
-    else:
-        print(u'No such document!')
+        doc = doc_ref.get()
+        dictionary = doc.to_dict()
+        if doc.exists:
+            print(u'Document data has been returned!')
+            return dictionary
+        else:
+            print(u'No such document!')
+            return None
+    except TypeError:
         return None
 
 

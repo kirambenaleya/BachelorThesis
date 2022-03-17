@@ -108,28 +108,6 @@ def team_formation_algorithm(delimiter, maximum_per_group, student_data, weights
             pt -= step_size
             attempt = attempt.first
 
-    if not len(group_configuration) <= 4:
-        swap = try_swapping_best_worst(group_configuration, find_lowest(group_configuration),
-                                       find_highest(group_configuration),
-                                       weights)
-        if swap == -1:
-
-            second_try = group_configuration[:]
-            index_lowest = find_lowest(second_try)
-            del second_try[index_lowest]
-            index_highest = find_highest(second_try)
-            del second_try[index_highest]
-
-            swap_try_2 = try_swapping_best_worst(second_try, find_lowest(second_try),
-                                                 find_highest(second_try), weights)
-            if swap_try_2 == -1:
-                pass
-            else:
-                # TODO: Discuss with Eva and implement
-                print("Second try")
-        else:
-            print("Success")
-
     for index, group in enumerate(group_configuration):
         index_value = index + 1
         print('Group number %2d' % index_value)

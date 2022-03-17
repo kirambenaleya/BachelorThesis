@@ -20,6 +20,7 @@ def preprocess_data(filepath, delimiter):
     students = []
 
     # Preprocess data and convert all strings to ints to allow for calculation in later steps
+    print(data)
     data.loc[data['Bachelor/Master'] == 'bachelor', 'Bachelor/Master'] = Bachelor.bachelor.value
     data.loc[data['Bachelor/Master'] == 'master', 'Bachelor/Master'] = Bachelor.master.value
     data.loc[data['Major/Minor'] == 'major', 'Major/Minor'] = Major.major.value

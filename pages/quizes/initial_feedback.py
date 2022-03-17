@@ -5,8 +5,8 @@ from database_functions import add_feedback_to_database, add_initial_survey_to_d
     check_if_initial_survey_answered, add_participant
 
 
-def initial_feedback(email, password, dictionary):
-    if not check_if_initial_survey_answered(email, password, dictionary['Matriculation Number']):
+def initial_feedback(email, password, matriculation_id):
+    if not check_if_initial_survey_answered(email, password, matriculation_id):
         assignment, importance, impact = None, None, None
         # TODO: Check if survey has already been answered and if it has, don't show it.
         # if not check_if_survey_answered(email, dictionary):
@@ -147,11 +147,11 @@ def initial_feedback(email, password, dictionary):
                                              understanding, capability, diversity, mental, simplicity, delight, surprise, frustration, lack,
                                              design, pref_teammate, assignment, importance, impact, diversity_score, influence, influence_grade,
                                              performance, belief, email)
-            add_initial_survey_to_database(initial_survey, password, email, dictionary['Matriculation Number'])
+            add_initial_survey_to_database(initial_survey, password, email, matriculation_id)
             if submit:
                 feedback = Feedback(satisfaction, outcome, experience, recommendation, fairness, visibility,
                                     understanding, capability, diversity, email)
-                add_feedback_to_database(feedback, password, email, dictionary['Matriculation Number'])
+                add_feedback_to_database(feedback, password, email, matriculation_id)
                 add_participant(email, password, 'CSCW FS 22 Initial Feedback')
                 st.success("Your answers have been saved. Thank you!")
                 st.experimental_rerun()
