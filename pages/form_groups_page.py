@@ -44,7 +44,7 @@ def display_form_groups(email, password):
                     mime='text/csv',
                 )
             else:
-                st.info("No data is available yet.")
+                st.info("No student data is available yet.")
 
             # TODO: Display sum of all weights and decimals rounded off by 2
             if data_weights:
@@ -61,6 +61,8 @@ def display_form_groups(email, password):
                 st.header("Weights and Points Distribution")
                 st.text("These are the average weights computed using the student data you gathered.")
                 st.dataframe(df)
+            else:
+                st.info("No weights are currently available")
 
         with st.expander('Compute the group configuration', expanded=False):
             st.header("Group Formation")
