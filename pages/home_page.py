@@ -18,7 +18,7 @@ def display_home():
 
     st.text( "A note on privacy: we will only use your info to match you in groups, that’s it.\nThe professor cannot "
              "see your answers. Survey answers weill be anonymised and\ntreated with the upmost care. Further, (seen as"
-             "this is only a prototype) any\npersonal data will be deleted 1 month after filling out the surveys.")
+             " this is only a prototype) any\npersonal data will be deleted 1 month after filling out the surveys.")
 
     st.markdown("##")
     st.subheader("Quiz")
