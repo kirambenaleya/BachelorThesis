@@ -10,11 +10,11 @@ have the option to get to meet new people as well as teaming up with a best frie
 
 This tool considers basic personal information and personal preferences to match you with your dream team. These group matching criteria are determined 
 based on the suggestions from your fellow students who took this class last year. The top matching criteria they indicated are:
-    \n1. Gender
-    \n2. Preferred Teammate
-    \n3. Age
-    \n4. Educational Level
-    \n5. Schedule
-    \n6. Skill-set
-    \n7. Major/Minor
-    \n8. Experience: first/second attempt of the module
+    <br />1. Gender
+    <br />2. Preferred Teammate
+    <br />3. Age
+    <br />4. Educational Level
+    <br />5. Schedule
+    <br />6. Skill-set
+    <br />7. Major/Minor
+    <br />8. Experience: first/second attempt of the module
