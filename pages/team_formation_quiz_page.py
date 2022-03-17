@@ -277,7 +277,14 @@ def display_team_formation_quiz(email, password):
                                           'Email'] + ")"
                             st.text(message)
                         if data:
-                            st.markdown("**")
+                            st.markdown("##")
+                            st.subheader("Why am I in this group?")
+                            st.text("This tool incorporates personal preferences and assigns people into groups to\n"
+                                    "ensure diversity within the group and equality across groups.")
+                            st.markdown("##")
+                            st.subheader("How does my group compare to others?")
+                            st.text("Group diversity score is calculated based on basic personal information such "
+                                    "as\ngender, study levels, major and skillset.")
                             message = 'Your group has an internal group distance of {:.2f}'.format(
                                 data['igd']) + ' and a group average distance\nof {:.2f}.'.format(
                                 data['gad']) + ' Below you can see two different visualizations of the distribution.'
@@ -285,7 +292,6 @@ def display_team_formation_quiz(email, password):
 
                         igd_list, gad_list = analyze_gad_igd(group_configuration)
                         if igd_list:
-                            st.markdown("##")
                             st.markdown("##")
                             x_coordinates = []
 
@@ -300,7 +306,8 @@ def display_team_formation_quiz(email, password):
                             plt.axhline(average_igd, color='k', linestyle='-')
                             plt.axhline(data['igd'], color='r', linestyle='--')
                             plt.ylabel("Number of Groups")
-                            plt.figlegend(['Average IGD', 'Your Group-IGD'], loc='upper right')
+                            plt.figlegend(['Average Group Diversity Score', 'Your Group Diversity Score'],
+                                          loc='upper right')
                             st.pyplot(fig)
 
                             fig, ax = plt.subplots()
