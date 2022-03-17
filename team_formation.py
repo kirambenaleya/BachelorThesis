@@ -4,7 +4,7 @@ import requests
 import streamlit as st
 import pyrebase
 
-
+from pages.download_page import display_download_page
 from pages.home_page import display_home
 from pages.team_formation_quiz_page import display_team_formation_quiz
 from pages.analyze_data_page import display_analyze_data
@@ -104,3 +104,6 @@ if choice == "Login":
 
         elif bio == 'Team Formation Quiz':
             display_team_formation_quiz(email, password)
+
+        elif bio == 'Download Code':
+            display_download_page()
