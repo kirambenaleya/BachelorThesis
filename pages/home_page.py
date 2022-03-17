@@ -2,23 +2,32 @@ import streamlit as st
 
 
 def display_home():
-    st.header("Team Formation Algorithm")
-    st.subheader("_developed by Eva Yiwei Wu & Kiram Ben Aleya_")
+    st.header("Home Page")
+    st.markdown("**Team Formation Tool, developed by Eva Yiwei Wu & Kiram Ben Aleya**")
+    st.markdown("##")
+    st.subheader("Why?")
 
-    st.subheader("What is the aim of this project?")
+    st.text("You may ask yourself why we are using an automated tool to form groups? Automated\ngroup formation "
+            "ensures that everyone finds a group without stress, no matter how\nlong they have been at the university."
+            " We can ensure that diverse skill sets and\nsubject expertise are present in each group. Further, you "
+            "have the option to get\nto meet new people as well as teaming up with a best friend by selecting "
+            "each\nother in the tool.")
 
-    st.text(
-        "In this project we aim to develop a machine learning algorithm enabling a fair team\nallocation "
-        "within a university setting. The algorithm has been based on XYZ and the\ndevelopment followed a "
-        "value sensitive design approach proposed by XYZ.")
+    st.markdown("##")
+    st.subheader("Privacy")
 
-    st.subheader("How does our algorithm work?")
+    st.text( "A note on privacy: we will only use your info to match you in groups, that’s it.\nThe professor cannot "
+             "see your answers. Survey answers weill be anonymised and\ntreated with the upmost care. Further, (seen as"
+             "this is only a prototype) any\npersonal data will be deleted 1 month after filling out the surveys.")
 
-    st.text(
-        "Input-values were determined in collaboration with our main stakeholders, the\nstudents themselves. "
-        "Literature on team formation and algorithmic team allocation\nwas reviewed. In addition to the "
-        "input-variables we also focus on transparency,\nwhich is why the entire code can be downloaded at: "
-        "www.xyz.xyz. We also want the\nstudents to participate in the process by assigning different weights "
-        "they consider\nappropriate to the input values. Students also have the possibility of choosing "
-        "a\nteammate. In order to prevent cheating students can only choose a single teammate.\nFor the "
-        "algorithm to consider your choice it must be reciprocal (meaning your\nteammate must also choose you).")
+    st.markdown("##")
+    st.subheader("Quiz")
+
+    st.text("This tool considers basic personal information and personal preferences to match\nyou with your "
+            "dream team. These group matching criteria are determined based on\nthe suggestions from your fellow "
+            "students who took this class last year. The top\nmatching criteria they indicated are:\n\n"
+            "1. Gender\n2. Preferred Teammate\n3. Age\n4. Educational Level\n5. Schedule\n6. Skill-set \n"
+            "7. Major/Minor\n8. Experience: first/second attempt of the module")
+
+    st.markdown("##")
+    st.markdown("**Let’s start the team formation quiz by clicking on the button on the top\nof the page!**")

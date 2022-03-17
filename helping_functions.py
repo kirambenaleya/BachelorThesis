@@ -20,8 +20,15 @@ def none_all_or_weekdays(schedule):
 
 def transform_ranking_to_weights(rank_gender, rank_age, rank_experience, rank_edu_level, rank_major, rank_attempt,
                                  rank_teammate, rank_schedule, matriculation_number):
-    return Weights(rank_age / 28, rank_gender / 28, rank_attempt / 28, rank_edu_level / 28, rank_major / 28,
-                   rank_teammate / 28, rank_schedule / 28, rank_experience / 28, matriculation_number)
+    sum_of_ranks = rank_gender + rank_age + rank_experience + rank_edu_level + rank_major + rank_attempt + \
+                   rank_teammate + rank_schedule
+    return Weights(rank_age / sum_of_ranks, rank_gender / sum_of_ranks, rank_attempt / sum_of_ranks, rank_edu_level /
+                   sum_of_ranks, rank_major / sum_of_ranks, rank_teammate / sum_of_ranks, rank_schedule / sum_of_ranks,
+                   rank_experience / sum_of_ranks, matriculation_number), Weights(rank_gender, rank_age,
+                                                                                  rank_experience, rank_edu_level,
+                                                                                  rank_major, rank_attempt,
+                                                                                  rank_teammate, rank_schedule,
+                                                                                  matriculation_number)
 
 
 def has_correct_form(teammate):

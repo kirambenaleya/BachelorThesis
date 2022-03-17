@@ -54,7 +54,7 @@ choice = st.sidebar.selectbox('Login/Signup', ['Login', 'Sign up'])
 
 email = st.sidebar.text_input("Please enter your email address")
 password = st.sidebar.text_input("Please enter your password", type='password')
-
+user = None
 if choice == 'Sign up':
     submit = st.sidebar.button("Create my account")
 
@@ -74,12 +74,17 @@ if choice == 'Sign up':
 if choice == "Login":
     login = st.sidebar.checkbox('Login / Logout')
     if login:
-        user = auth.sign_in_with_email_and_password(email, password)
+        try:
+            user = auth.sign_in_with_email_and_password(email, password)
 
-        # Save the Id-Token and the Refresh-Token to the session state
-        st.session_state['idToken'] = user['idToken']
-        st.session_state['refreshToken'] = user['refreshToken']
-
+            # Save the Id-Token and the Refresh-Token to the session state
+            st.session_state['idToken'] = user['idToken']
+            st.session_state['refreshToken'] = user['refreshToken']
+        except requests.exceptions.HTTPError as e:
+            error_json = e.args[1]
+            error = json.loads(error_json)['error']['message']
+            st.error(error)
+    if user:
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
         bio = st.radio('Jump to', ['Home', 'Team Formation Quiz', 'Form Groups', 'Analyze Data', 'Download Code',

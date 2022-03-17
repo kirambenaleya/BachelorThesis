@@ -38,11 +38,11 @@ def check_for_creds(email, password, api_key):
     return creds
 
 
-def add_survey_to_database(first_name, last_name, age, experience, gender, bachelor, major, matriculation_number,
-                           teammate, schedule, email, attempt, password, document,
-                           api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
-                           collection=u'CSCW FS22 Answers'):
-
+def add_team_formation_quiz_to_database(first_name, last_name, age, experience, gender, bachelor, major,
+                                        matriculation_number,
+                                        teammate, schedule, email, attempt, password, document,
+                                        api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
+                                        collection=u'CSCW FS22 Answers'):
     creds = check_for_creds(email, password, api_key)
 
     # Use the raw firestore grpc client instead of building one through firebase_admin
@@ -62,6 +62,21 @@ def add_weights_to_database(weights, password, email, document, api_key='AIzaSyC
     creds = check_for_creds(email, password, api_key)
     db = Client('bachelor-thesis-8464a', creds)
     db.collection(collection).document(document).set(weights.to_dict(), merge=True)
+
+
+def add_points_to_database(points, password, email, document, api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
+                           collection=u'CSCW 22 Points'):
+    creds = check_for_creds(email, password, api_key)
+    db = Client('bachelor-thesis-8464a', creds)
+    db.collection(collection).document(document).set(points.to_dict(), merge=True)
+
+
+def add_initial_survey_to_database(initial_survey, password, email, document,
+                                   api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
+                                   collection=u'CSCW FS 22 Initial Survey'):
+    creds = check_for_creds(email, password, api_key)
+    db = Client('bachelor-thesis-8464a', creds)
+    db.collection(collection).document(document).set(initial_survey.to_dict(), merge=True)
 
 
 def add_feedback_to_database(feedback, password, email, document, api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
@@ -139,13 +154,34 @@ def read_from_database(email, password, collection, api_key='AIzaSyCFtM8x4XgSRg1
         return None
 
 
-def check_if_survey_answered(matriculation_id, dictionary):
-    if not dictionary:
+def quiz_team_formation_is_answered(email, password, matriculation_id):
+    data = read_document_from_database(email, password, collection=u'CSCW FS22 Answers', document=matriculation_id)
+    if not data:
         return False
-    if dictionary['Matriculation Number'] == matriculation_id:
-        return True
     else:
+        return True
+
+
+def add_participant(email, password, document):
+    data = read_document_from_database(email, password, collection=u'Course Data',
+                                       document=document)
+    participants = 0
+    if data:
+        participants = data['participants']
+    participants += 1
+    creds = check_for_creds(email, password, api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0')
+    db = Client('bachelor-thesis-8464a', creds)
+    db.collection(u'Course Data').document(document).set({'participants': participants}, merge=True)
+    return None
+
+
+def check_if_initial_survey_answered(email, password, matriculation_id):
+    data = read_document_from_database(email, password, collection='CSCW FS 22 Initial Survey',
+                                       document=matriculation_id)
+    if not data:
         return False
+    else:
+        return True
 
 
 def is_survey_open(email, password, api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',

@@ -222,3 +222,95 @@ class PeerReview(object):
                 Performance Teammate 4={self.performance_teammate4}\
             )'
         )
+
+
+class InitialFeedback(object):
+    def __init__(self, satisfaction, outcome, reassignment, experience, recommendation, fairness, visibility,
+                 understanding, capability, diversity, mental, simplicity, delight, surprise, frustration, lack,
+                 design, pref_teammate, assignment, importance, impact, diversity_score, influence, influence_grade,
+                 performance, belief, email):
+        self.satisfaction = satisfaction
+        self.outcome = outcome
+        self.reassignment = reassignment
+        self.experience = experience
+        self.recommendation = recommendation
+        self.fairness = fairness
+        self.visibility = visibility
+        self.understanding = understanding
+        self.capability = capability
+        self.diversity = diversity
+        self.mental = mental
+        self.simplicity = simplicity
+        self.delight = delight
+        self.surprise = surprise
+        self.frustration = frustration
+        self.lack = lack
+        self.design = design
+        self.pref_teammate = pref_teammate
+        self.assignment = assignment
+        self.importance = importance
+        self.impact = impact
+        self.diversity_score = diversity_score
+        self.influence = influence
+        self.influence_grade = influence_grade
+        self.performance = performance
+        self.belief = belief
+        self.email = email
+
+    @staticmethod
+    def from_dict(source):
+        if source:
+            return InitialFeedback(source['Matriculation Number'], source['satisfaction'], source['outcome'],
+                                   source['reassignment'], source['experience'], source['recommendation'],
+                                   source['fairness'], source['visibility'], source['understanding'],
+                                   source['capability'], source['diversity'], source['mental'], source['simplicity'],
+                                   source['delight'], source['surprise'], source['frustration'], source['lack'],
+                                   source['design'], source['pref_teammate'], source['assignment'],
+                                   source['importance'], source['impact'], source['diversity_score'],
+                                   source['influence'], source['influence_grade'], source['performance'],
+                                   source['belief'])
+        else:
+            return None
+
+    def to_dict(self):
+        return {'Email': self.email, 'satisfaction': self.satisfaction, 'reassignment': self.reassignment,
+                'outcome': self.outcome, 'experience': self.experience, 'recommendation': self.recommendation,
+                'fairness': self.fairness, 'visibility': self.visibility, 'understanding': self.understanding,
+                'capability': self.capability, 'diversity': self.diversity, 'mental': self.mental,
+                'simplicity': self.simplicity, 'delight': self.delight, 'surprise': self.surprise,
+                'frustration': self.frustration, 'lack': self.lack, 'design': self.design,
+                'pref_teammate': self.pref_teammate, 'assignment': self.assignment, 'importance': self.importance,
+                'impact': self.impact, 'diversity_score': self.diversity_score, 'influence': self.influence,
+                'influence_grade': self.influence_grade, 'performance': self.performance, 'belief': self.belief}
+
+    def __repr__(self):
+        return (
+            f'Feedback(\
+                Email={self.email}\
+                satisfaction={self.satisfaction}, \
+                reassignment={self.reassignment}, \
+                outcome={self.outcome}, \
+                experience={self.experience}\
+                recommendation={self.recommendation}\
+                fairness={self.fairness}\
+                visibility={self.visibility}\
+                understanding={self.understanding}\
+                capability={self.capability}\
+                diversity={self.diversity}\
+                mental={self.mental}\
+                delight={self.delight}\
+                surprise={self.surprise}\
+                frustration={self.frustration}\
+                lack={self.lack}\
+                design={self.design}\
+                pref_teammate={self.pref_teammate}\
+                assignment={self.assignment}\
+                importance={self.importance}\
+                impact={self.impact}\
+                diversity_score={self.diversity_score}\
+                influence={self.influence}\
+                influence_grade={self.influence_grade}\
+                performance={self.performance}\
+                belief={self.belief}\
+            )'
+        )
