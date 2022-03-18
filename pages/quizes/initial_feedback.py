@@ -147,11 +147,8 @@ def initial_feedback(email, password, matriculation_id):
                                              understanding, capability, diversity, mental, simplicity, delight, surprise, frustration, lack,
                                              design, pref_teammate, assignment, importance, impact, diversity_score, influence, influence_grade,
                                              performance, belief, email)
-            add_initial_survey_to_database(initial_survey, password, email, matriculation_id)
             if submit:
-                feedback = Feedback(satisfaction, outcome, experience, recommendation, fairness, visibility,
-                                    understanding, capability, diversity, email)
-                add_feedback_to_database(feedback, password, email, matriculation_id)
+                add_initial_survey_to_database(initial_survey, password, email, matriculation_id)
                 add_participant(email, password, 'CSCW FS 22 Initial Feedback')
                 st.success("Your answers have been saved. Thank you!")
                 st.experimental_rerun()
