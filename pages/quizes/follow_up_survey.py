@@ -1,13 +1,19 @@
-from database_classes import Feedback, PeerReview
+from database_classes import Feedback, PeerReview, Demographics
 import streamlit as st
 
-from database_functions import is_survey_open, add_feedback_to_database, add_peer_review_to_database, add_participant, \
-    check_if_survey_answered
+from database_functions import is_survey_open, add_peer_review_to_database, add_participant, \
+    check_if_survey_answered, add_follow_up_feedback_to_database, add_demographics_to_database
 
 
 def follow_up_survey(email, password, matriculation_id):
     if is_survey_open(email, password, document='CSCW FS 22 Follow-Up Feedback'):
         if not check_if_survey_answered(email, password, matriculation_id, 'CSCW FS 22 Follow-Up Feedback'):
+            recommendation_instead = None
+            fairness_reason = None
+            visibility_reason = None
+            understanding_reason = None
+            capability_reason = None
+            diversity_reason = None
             st.markdown('##')
             st.subheader("Part One")
             st.text("")
@@ -244,13 +250,18 @@ def follow_up_survey(email, password, matriculation_id):
                 submit = st.checkbox('Submit', disabled=False)
                 if submit:
                     feedback = Feedback(satisfaction, outcome, experience, recommendation, fairness, visibility,
-                                        understanding, capability, diversity, email)
+                                        understanding, capability, diversity, fulfillment, importance_fulfillment, recommendation_instead,
+                                        fairness_reason, visibility_reason, understanding_reason, capability_reason, diversity_reason,
+                                        overall_prototype, improvements, further_improvements)
                     peer_review = PeerReview(name_teammate1, performance_teammate1, name_teammate2,
                                              performance_teammate2,
                                              name_teammate3, performance_teammate3, name_teammate4,
                                              performance_teammate4,
                                              email)
-                    add_feedback_to_database(feedback, password, email, matriculation_id)
+                    demographics = Demographics(orientation, wake_up, nationality, leader, effort, english,
+                                                german)
+                    add_demographics_to_database(demographics, password, email, matriculation_id)
+                    add_follow_up_feedback_to_database(feedback, password, email, matriculation_id)
                     add_peer_review_to_database(peer_review, password, email, matriculation_id)
                     add_participant(email, password, 'CSCW Follow-Up Feedback')
     else:

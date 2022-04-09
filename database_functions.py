@@ -79,8 +79,16 @@ def add_initial_survey_to_database(initial_survey, password, email, document,
     db.collection(collection).document(document).set(initial_survey.to_dict(), merge=True)
 
 
-def add_feedback_to_database(feedback, password, email, document, api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
-                             collection=u'CSCW 22 Feedback'):
+def add_demographics_to_database(feedback, password, email, document, api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
+                             collection=u'CSCW 22 Demographic Data'):
+    creds = check_for_creds(email, password, api_key)
+    db = Client('bachelor-thesis-8464a', creds)
+    db.collection(collection).document(document).set(feedback.to_dict(), merge=True)
+
+
+def add_follow_up_feedback_to_database(feedback, password, email, document,
+                                       api_key='AIzaSyCFtM8x4XgSRg1qTjMLLqgx380UGV_T9L0',
+                                       collection=u'CSCW FS 22 Follow-Up Feedback'):
     creds = check_for_creds(email, password, api_key)
     db = Client('bachelor-thesis-8464a', creds)
     db.collection(collection).document(document).set(feedback.to_dict(), merge=True)

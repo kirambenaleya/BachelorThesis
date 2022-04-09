@@ -133,7 +133,9 @@ class Weights(object):
 
 class Feedback(object):
     def __init__(self, satisfaction, outcome, experience, recommendation, fairness, visibility,
-                 understanding, capability, diversity, email):
+                 understanding, capability, diversity, fulfillment, importance_fulfillment, recommendation_instead,
+                 fairness_reason, visibility_reason, understanding_reason, capability_reason, diversity_reason,
+                 overall_prototype, improvements, further_improvements):
         self.satisfaction = satisfaction
         self.outcome = outcome
         self.experience = experience
@@ -143,27 +145,44 @@ class Feedback(object):
         self.understanding = understanding
         self.capability = capability
         self.diversity = diversity
-        self.email = email
+        self.fulfillment = fulfillment
+        self.importance_fulfillment = importance_fulfillment
+        self.recommendation_instead = recommendation_instead
+        self.fairness_reason = fairness_reason
+        self.visibility_reason = visibility_reason
+        self.understanding_reason = understanding_reason
+        self.capability_reason = capability_reason
+        self.diversity_reason = diversity_reason
+        self.overall_prototype = overall_prototype
+        self.improvements = improvements
+        self.further_improvements = further_improvements
 
     @staticmethod
     def from_dict(source):
         if source:
-            return Feedback(source['Matriculation Number'], source['satisfaction'], source['outcome'],
-                            source['experience'], source['recommendation'], source['fairness'], source['visibility'],
-                            source['understanding'], source['capability'], source['diversity'])
+            return Feedback(source['satisfaction'], source['outcome'], source['experience'], source['recommendation'],
+                            source['fairness'], source['visibility'],
+                            source['understanding'], source['capability'], source['diversity'], source['fulfillment'],
+                            source['importance_fulfillment'], source['recommendation_instead'],
+                            source['fairness_reason'], source['visibility_reason'],
+                            source['understanding_reason'], source['capability_reason'], source['diversity_reason'],
+                            source['overall_prototype'],
+                            source['improvements'], source['further_improvements'])
         else:
             return None
 
     def to_dict(self):
-        return {'Email': self.email, 'satisfaction': self.satisfaction,
+        return {'satisfaction': self.satisfaction,
                 'outcome': self.outcome, 'experience': self.experience, 'recommendation': self.recommendation,
                 'fairness': self.fairness, 'visibility': self.visibility, 'understanding': self.understanding,
-                'capability': self.capability, 'diversity': self.diversity}
+                'capability': self.capability, 'diversity': self.diversity, 'fulfillment': self.fulfillment, 'importance_fulfillment': self.importance_fulfillment,
+                'recommendation_instead': self.recommendation_instead, 'fairness_reason': self.fairness_reason, 'visibility_reason': self.visibility_reason,
+                'understanding_reason': self.understanding_reason, 'capability_reason': self.capability_reason, 'diversity_reason': self.diversity_reason,
+                'overall_prototype': self.overall_prototype, 'improvements': self.improvements, 'further_improvements': self.further_improvements}
 
     def __repr__(self):
         return (
             f'Feedback(\
-                Email={self.email}\
                 satisfaction={self.satisfaction}, \
                 outcome={self.outcome}, \
                 experience={self.experience}\
@@ -173,6 +192,17 @@ class Feedback(object):
                 understanding={self.understanding}\
                 capability={self.capability}\
                 diversity={self.diversity}\
+                fulfillment={self.fulfillment}\
+                importance_fulfillment={self.importance_fulfillment}\
+                recommendation_instead={self.recommendation_instead}\
+                fairness_reason={self.fairness_reason}\
+                visibility_reason={self.visibility_reason}\
+                understanding_reason={self.understanding_reason}\
+                capability_reason={self.capability_reason}\
+                diversity_reason={self.diversity_reason}\
+                overall_prototype={self.overall_prototype}\
+                improvements={self.improvements}\
+                further_improvements={self.further_improvements}\
             )'
         )
 
@@ -312,5 +342,43 @@ class InitialFeedback(object):
                 influence_grade={self.influence_grade}\
                 performance={self.performance}\
                 belief={self.belief}\
+            )'
+        )
+
+
+class Demographics(object):
+    def __init__(self, orientation, wake_up, nationality, leader, effort, english,
+                 german):
+        self.orientation = orientation
+        self.wake_up = wake_up
+        self.nationality = nationality
+        self.leader = leader
+        self.effort = effort
+        self.english = english
+        self.german = german
+
+    @staticmethod
+    def from_dict(source):
+        if source:
+            return Demographics(source['Orientation'], source['Wake Up'], source['Nationality'], source['Leader'],
+                                source['Effort'], source['English'], source['German'])
+        else:
+            return None
+
+    def to_dict(self):
+        return {'Orientation': self.orientation, 'Wake Up': self.wake_up,
+                'Nationality': self.nationality, 'Leader': self.leader, 'Effort': self.effort,
+                'English': self.english, 'German': self.german}
+
+    def __repr__(self):
+        return (
+            f'Feedback(\
+                Orientation={self.orientation}\
+                Wake Up={self.wake_up}, \
+                Nationality={self.nationality}, \
+                Leader={self.leader}\
+                Effort={self.effort}\
+                English={self.english}\
+                German={self.german}\
             )'
         )
