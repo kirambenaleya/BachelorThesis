@@ -1,15 +1,12 @@
 import streamlit as st
 
-from database_classes import Feedback, InitialFeedback
-from database_functions import add_feedback_to_database, add_initial_survey_to_database, \
-    check_if_initial_survey_answered, add_participant
+from database_classes import InitialFeedback
+from database_functions import add_initial_survey_to_database, check_if_survey_answered, add_participant
 
 
 def initial_feedback(email, password, matriculation_id):
-    if not check_if_initial_survey_answered(email, password, matriculation_id):
+    if not check_if_survey_answered(email, password, matriculation_id, "CSCW FS 22 Initial Feedback"):
         assignment, importance, impact = None, None, None
-        # TODO: Check if survey has already been answered and if it has, don't show it.
-        # if not check_if_survey_answered(email, dictionary):
         st.markdown('##')
         st.subheader("Part One")
         st.text("")
@@ -18,15 +15,15 @@ def initial_feedback(email, password, matriculation_id):
         col1.text("")
         col1.text("I was satisfied with the team\nassigned to me.")
         col1.text("")
-        satisfaction = col2.slider("1 = strongly disagree, 7 = strongly agree", 1, 7, key='satisfaction')
+        satisfaction = col2.slider("1 = strongly disagree, 7 = strongly agree", 1, 7, 4, key='satisfaction')
         col1.text("")
         col1.text("I am confident that my team will\nproduce a successful project outcome.")
-        outcome = col2.slider("", 1, 7, key='outcome')
+        outcome = col2.slider("", 1, 7, 4, key='outcome')
         col1.text("")
         col1.text("")
         col1.text("If you are given the option to request\na re-assignment of the teams, how\nlikely would you request for "
                   "a\nre-assignment?")
-        reassignment = col2.slider("", 1, 7, key='reassignment')
+        reassignment = col2.slider("", 1, 7, 4, key='reassignment')
         st.markdown('##')
         st.subheader("Part Two")
         col1, col2 = st.columns(2)
@@ -34,12 +31,12 @@ def initial_feedback(email, password, matriculation_id):
         col1.text('')
         col1.text(
             "What has been your experience with the\nteam-formation approach used in this\nhomework? ")
-        experience = col2.slider('1 = very poor, 7 = excellent', 1, 7, key='experience')
+        experience = col2.slider('1 = very poor, 7 = excellent', 1, 7, 4, key='experience')
         col1.text('')
         col1.text(
             "I would recommend repeating the approach\nto team formation I experienced in this\ncourse "
             "in the future.")
-        recommendation = col2.slider('', 1, 7, key='recommendation')
+        recommendation = col2.slider('', 1, 7, 4, key='recommendation')
 
         st.markdown("##")
         st.subheader("Part Three")
@@ -47,23 +44,23 @@ def initial_feedback(email, password, matriculation_id):
         col1.text('')
         col1.text('')
         col1.text("I consider the group formation process\nto be fair.")
-        fairness = col2.slider("1 = very poor, 7 = excellent", 1, 7, key='fairness')
+        fairness = col2.slider("1 = very poor, 7 = excellent", 1, 7, 4, key='fairness')
         col1.text('')
         col1.text('')
         col1.text('')
         col1.text('I have visibility into how the algorithm\ncreated groups.')
-        visibility = col2.slider("", 1, 7, key='visibility')
+        visibility = col2.slider("", 1, 7, 4, key='visibility')
         col1.text('')
         col1.text('')
         col1.text("I understand how the algorithm formed\ngroups. (E.g. which criteria was\nconsidered)")
-        understanding = col2.slider("", 1, 7, key='understanding')
+        understanding = col2.slider("", 1, 7, 4, key='understanding')
         col1.text('')
         col1.text('I think the team I was assigned to is\nequally capable to other teams at\n'
                   'tackling the creative challenge.')
-        capability = col2.slider("", 1, 7, key='capability')
+        capability = col2.slider("", 1, 7, 4, key='capability')
         col1.text('')
         col1.text("I think the team that was assigned to me\nis diverse.")
-        diversity = col2.slider("", 1, 7, key='diversity')
+        diversity = col2.slider("", 1, 7, 4, key='diversity')
 
         st.markdown("##")
         st.subheader("Part Four")
@@ -71,11 +68,11 @@ def initial_feedback(email, password, matriculation_id):
         col1.text('')
         col1.text('')
         col1.text("How easy (mentally) was it to use the\nalgorithmic team formation tool?")
-        mental = col2.slider("1 = not at all, 7 = extremely", 1, 7, key='mental')
+        mental = col2.slider("1 = not at all, 7 = extremely", 1, 7, 4, key='mental')
         col1.text('')
         col1.text('')
         col1.text('I feel that using the algorithmic team\nformation tool simplifies the process\nof finding a team.')
-        simplicity = col2.slider("", 1, 7, key='simplicity')
+        simplicity = col2.slider("", 1, 7, 4, key='simplicity')
         col1.text('')
         col1.text('')
         col1.text("What about the algorithmic team\nformation tool that delights you?")
@@ -122,7 +119,7 @@ def initial_feedback(email, password, matriculation_id):
         col1.text('')
         col1.text('')
         col1.text("I am satisfied with my team’s\ndiversity score.")
-        diversity_score = col2.slider("1 = not at all, 7 = extremely", 1, 7, key='diversity_score')
+        diversity_score = col2.slider("1 = not at all, 7 = extremely", 1, 7, 4, key='diversity_score')
         col1.text('')
         col1.text('')
         col1.text('How does the group diversity score\ninfluence your perception of the\nfairness regarding the '

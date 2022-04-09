@@ -178,8 +178,8 @@ def add_participant(email, password, document):
     return None
 
 
-def check_if_initial_survey_answered(email, password, matriculation_id):
-    data = read_document_from_database(email, password, collection='CSCW FS 22 Initial Survey',
+def check_if_survey_answered(email, password, matriculation_id, collection):
+    data = read_document_from_database(email, password, collection=collection,
                                        document=matriculation_id)
     if not data:
         return False
