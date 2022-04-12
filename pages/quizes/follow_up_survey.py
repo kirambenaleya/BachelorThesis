@@ -270,6 +270,9 @@ def follow_up_survey(email, password, matriculation_id):
                     add_demographics_to_database(demographics, password, email, matriculation_id)
                     add_follow_up_feedback_to_database(feedback, password, email, matriculation_id)
                     add_peer_review_to_database(peer_review, password, email, matriculation_id)
-                    add_participant(email, password, 'CSCW Follow-Up Feedback')
+                    add_participant(email, password, 'CSCW FS 22 Follow-Up Feedback')
+                    st.experimental_rerun()
+        elif check_if_survey_answered(email, password, matriculation_id, 'CSCW FS 22 Follow-Up Feedback'):
+            st.success("Thank you for participating in this survey!")
     else:
         st.warning("This survey has not been opened yet.")
