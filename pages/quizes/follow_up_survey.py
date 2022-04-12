@@ -24,7 +24,7 @@ def follow_up_survey(email, password, matriculation_id):
             col1.text("")
             satisfaction = col2.slider("1 = strongly disagree, 7 = strongly agree", 1, 7, 4, key='satisfaction')
             col1.text("")
-            col1.text("My team has produced a successful\nproject outcome.")
+            col1.text("I think my team has produced a\nsuccessful project outcome.")
             outcome = col2.slider("", 1, 7, 4, key='outcome')
             col1.text("")
             col1.text("Now that you have completed your\ncollaboration with the team assigned\nto you, how important "
@@ -75,6 +75,8 @@ def follow_up_survey(email, password, matriculation_id):
                 fairness_reason = col2.text_area("", key='fairness_reason')
                 col1.text('')
                 col1.text('')
+                st.text("")
+                col1, col2 = st.columns(2)
             col1.text('')
             col1.text('')
             col1.text('')
@@ -90,6 +92,8 @@ def follow_up_survey(email, password, matriculation_id):
                 col1.text('')
                 col1.text('')
                 col1.text('')
+                st.text("")
+                col1, col2 = st.columns(2)
             col1.text('')
             col1.text('')
             col1.text(
@@ -103,6 +107,8 @@ def follow_up_survey(email, password, matriculation_id):
                 understanding_reason = col2.text_area("", key='understanding_reason')
                 col1.text('')
                 col1.text('')
+                st.text("")
+                col1, col2 = st.columns(2)
             col1.text('')
             col1.text('I think the team I was assigned to is\nequally capable at tackling the creative\n'
                       'challenge compared to other teams.')
@@ -116,6 +122,8 @@ def follow_up_survey(email, password, matriculation_id):
                 col1.text('')
                 col1.text('')
                 col1.text('')
+                st.text("")
+                col1, col2 = st.columns(2)
             col1.text('')
             col1.text("I think the team that was assigned to me\nis diverse.")
             diversity = col2.slider("", 1, 7, 4, key='diversity')
@@ -140,12 +148,14 @@ def follow_up_survey(email, password, matriculation_id):
             overall_prototype = col2.slider("1 = very poor, 7 = excellent", 1, 7, 4, key='overall_prototype')
             col1.text('')
             col2.text('')
-            col1.text("Which of the following improvements would\nhave been helpful to you?\n(Select all that apply)")
-            improvements = col2.multiselect("", ["A step-by-step guide in the user interface",
-                                                 "Step-by-step walk-through live demo",
-                                                 "Clearer specifications regarding the weights",
-                                                 "Explanation on group composition",
-                                                 "Explanation on preferred-teammate functionality"], key='improvements')
+            st.text("Which of the following improvements would have been helpful to you? (Select all\nthat apply)")
+            improvements = st.multiselect("", ["A step-by-step guide in the user interface",
+                                               "A step-by-step walk-through in form of a live demo",
+                                               "Clearer specifications regarding the weights",
+                                               "A personalized explanation on why and how you were grouped",
+                                               "A clear explanation of how the teammate functionality works"],
+                                          key='improvements')
+            col1, col2 = st.columns(2)
             col1.text('')
             col1.text('')
             col1.text("Please note any further ideas you have\nto improve the tool")
@@ -155,7 +165,7 @@ def follow_up_survey(email, password, matriculation_id):
             st.subheader("Part Five")
             st.text('')
             st.text('')
-            st.text("We'd like to gather some information on you, to be able to assess team diversity.")
+            st.text("Why aee you asking me this? - We'd like to assess team diversity.")
             col1, col2 = st.columns(2)
             col1.text('')
             col1.text('')
@@ -170,7 +180,7 @@ def follow_up_survey(email, password, matriculation_id):
             col1.text('')
             col1.text('')
             col1.text('')
-            col1.text('Whats your nationality?')
+            col1.text('What is your nationality?')
             nationality = col2.text_input("", key='nationality')
             col1.text('')
             col1.text('')
@@ -200,14 +210,8 @@ def follow_up_survey(email, password, matriculation_id):
             st.markdown("##")
             st.subheader("Peer Review")
             st.text(
-                "You have 10 points per teammate (including 10 points you can assign to yourself,\nso if you"
-                " were a team of four, you have 40 points available to distribute). You can\ndistribute the "
-                "points freely as you feel is fair. If you feel like the workload and\nperformance were "
-                "equally distributed assign each team member the full 10 points. If\nyou feel like a team "
-                "member did substantially less work, redistribute the points\naccordingly. This evaluation"
-                " will be totally anonymous and results will not be\nshared directly with any members of "
-                "your team. Make sure the points add up to n*10\npoints (n = number of group members, "
-                "including yourself).")
+                "This evaluation will be totally anonymous and results will not be shared directly\nwith any members "
+                "of your team.")
             col1, col2 = st.columns(2)
             col1.text('')
             col1.text('')
@@ -216,8 +220,9 @@ def follow_up_survey(email, password, matriculation_id):
             col1.text('')
             col1.text('')
             col1.text("Please rate their performance and\nthe workload distribution.")
-            performance_teammate1 = col2.text_input('', key='performance_teammate1')
+            performance_teammate1 = col2.slider('', 1, 7, 4, key='performance_teammate1')
 
+            col1.text('')
             col1.text('')
             col1.text('')
             col1.text("Please enter the full name of the\nsecond member.")
@@ -225,7 +230,7 @@ def follow_up_survey(email, password, matriculation_id):
             col1.text('')
             col1.text('')
             col1.text("Please rate their performance and\nthe workload distribution.")
-            performance_teammate2 = col2.text_input('', key='performance_teammate2')
+            performance_teammate2 = col2.slider('', 1, 7, 4, key='performance_teammate2')
 
             col1.text('')
             col1.text('')
@@ -235,7 +240,7 @@ def follow_up_survey(email, password, matriculation_id):
             col1.text('')
             col1.text('')
             col1.text("Please rate their performance and\nthe workload distribution.")
-            performance_teammate3 = col2.text_input('', key='performance_teammate3')
+            performance_teammate3 = col2.slider('', 1, 7, 4, key='performance_teammate3')
 
             col1.text('')
             col1.text('')
@@ -243,15 +248,17 @@ def follow_up_survey(email, password, matriculation_id):
             name_teammate4 = col2.text_input('Teammate Number 4', key='name_teammate4')
             col1.text('')
             col1.text("Please rate their performance and\nthe workload distribution.")
-            performance_teammate4 = col2.text_input('', key='performance_teammate4')
+            performance_teammate4 = col2.slider('', 1, 7, 4, key='performance_teammate4')
             st.markdown("##")
             if name_teammate1 and performance_teammate1 and name_teammate2 and performance_teammate2 and name_teammate3 \
                     and performance_teammate3:
                 submit = st.checkbox('Submit', disabled=False)
                 if submit:
                     feedback = Feedback(satisfaction, outcome, experience, recommendation, fairness, visibility,
-                                        understanding, capability, diversity, fulfillment, importance_fulfillment, recommendation_instead,
-                                        fairness_reason, visibility_reason, understanding_reason, capability_reason, diversity_reason,
+                                        understanding, capability, diversity, fulfillment, importance_fulfillment,
+                                        recommendation_instead,
+                                        fairness_reason, visibility_reason, understanding_reason, capability_reason,
+                                        diversity_reason,
                                         overall_prototype, improvements, further_improvements)
                     peer_review = PeerReview(name_teammate1, performance_teammate1, name_teammate2,
                                              performance_teammate2,

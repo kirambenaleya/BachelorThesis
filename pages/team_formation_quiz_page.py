@@ -15,7 +15,7 @@ def display_team_formation_quiz(email, password):
     matriculation_id = st.text_input("Please enter your matriculation number (e.g. 17-939-083). Make sure to use the "
                                      "right format!")
     if matriculation_id:
-        if matriculation_id:
+        if has_correct_form(matriculation_id):
             st.markdown('##')
             col1, col2 = st.columns(2)
             col1.text('')
@@ -78,7 +78,6 @@ def display_team_formation_quiz(email, password):
                     "number. (E.g. 17-939-083)")
                 col1.markdown("**Important: This does not guarantee that\nyou will end up in the same team!**")
                 teammate = col2.text_input("")
-                # TODO: Ensure that all matriculation numbers have the same format (check with Eva)
                 if not teammate or not has_correct_form(teammate):
                     teammate = '0'
 
@@ -326,3 +325,6 @@ def display_team_formation_quiz(email, password):
                     initial_feedback(email, password, matriculation_id)
                 else:
                     st.warning("This survey has not been opened yet.")
+        else:
+            st.warning("Please make sure that you enter your matriculation number using the follwoing format: "
+                       "xx-xxx-xxx")
