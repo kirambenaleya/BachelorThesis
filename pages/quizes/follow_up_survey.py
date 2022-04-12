@@ -210,7 +210,7 @@ def follow_up_survey(email, password, matriculation_id):
             st.markdown("##")
             st.subheader("Peer Review")
             st.text(
-                "This evaluation will be totally anonymous and results will not be shared directly\nwith any members "
+                "This evaluation will be totally anonymous and results will not be shared with\nany members "
                 "of your team.")
             col1, col2 = st.columns(2)
             col1.text('')
