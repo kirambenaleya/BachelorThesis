@@ -20,7 +20,6 @@ def display_team_formation_quiz(email, password):
             col1, col2 = st.columns(2)
             col1.text('')
             col1.text('')
-            dictionary = read_document_from_database(email, password, 'CSCW FS22 Answers', matriculation_id)
             col1.subheader("Please select your task")
             course = col2.selectbox('', ['None', 'CSCW FS 22', "CSCW FS 22 Initial Feedback",
                                          "CSCW FS 22 Follow-Up Feedback"])

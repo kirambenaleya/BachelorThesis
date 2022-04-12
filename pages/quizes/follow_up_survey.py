@@ -162,10 +162,10 @@ def follow_up_survey(email, password, matriculation_id):
             further_improvements = col2.text_area("", key='further_improvements')
 
             st.markdown("##")
-            st.subheader("Part Five")
+            st.subheader("Demographics")
             st.text('')
             st.text('')
-            st.text("Why aee you asking me this? - We'd like to assess team diversity.")
+            st.text("Why are you asking me this? - We'd like to assess team diversity.")
             col1, col2 = st.columns(2)
             col1.text('')
             col1.text('')
