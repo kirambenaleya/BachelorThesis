@@ -250,8 +250,7 @@ def follow_up_survey(email, password, matriculation_id):
             col1.text("Please rate their performance and\nthe workload distribution.")
             performance_teammate4 = col2.slider('', 1, 7, 4, key='performance_teammate4')
             st.markdown("##")
-            if name_teammate1 and performance_teammate1 and name_teammate2 and performance_teammate2 and name_teammate3 \
-                    and performance_teammate3:
+            if name_teammate1 and performance_teammate1 and name_teammate2 and performance_teammate2:
                 submit = st.checkbox('Submit', disabled=False)
                 if submit:
                     feedback = Feedback(satisfaction, outcome, experience, recommendation, fairness, visibility,
