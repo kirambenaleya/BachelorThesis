@@ -8,7 +8,6 @@ from pages.download_page import display_download_page
 from pages.home_page import display_home
 from pages.team_formation_quiz_page import display_team_formation_quiz
 from pages.analyze_data_page import display_analyze_data
-from pages.settings_page import display_settings
 from pages.form_groups_page import display_form_groups
 
 
@@ -87,13 +86,8 @@ if choice == "Login":
     if user:
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
-        bio = st.radio('Jump to', ['Home', 'Team Formation Quiz', 'Form Groups', 'Analyze Data', 'Download Code',
-                                   'Settings'])
-
-        if bio == 'Settings':
-            display_settings(db, user, storage)
-
-        elif bio == 'Home':
+        bio = st.radio('Jump to', ['Home', 'Team Formation Quiz', 'Form Groups', 'Analyze Data', 'Download Code'])
+        if bio == 'Home':
             display_home()
 
         elif bio == 'Form Groups':

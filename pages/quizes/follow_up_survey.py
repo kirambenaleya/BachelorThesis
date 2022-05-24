@@ -46,7 +46,7 @@ def follow_up_survey(email, password, matriculation_id):
             col1.text('')
             col1.text('')
             col1.text(
-                "What has been your experience with the\nteam-formation approach used in this\nhomework? ")
+                "What has been your experience with the\nteam-formation approach used in this\nhomework?")
             experience = col2.slider('1 = very poor, 7 = excellent', 1, 7, 4, key='experience')
             col1.text('')
             col1.text(
@@ -132,7 +132,7 @@ def follow_up_survey(email, password, matriculation_id):
                 col1.text('')
                 col1.text('')
                 col1.text('')
-                col1.text("In which aspects do you wish it to\nbe more diverse?  ")
+                col1.text("In which aspects do you wish it to\nbe more diverse?")
                 diversity_reason = col2.text_area("", key='diversity_reason')
 
             st.markdown("##")
