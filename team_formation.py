@@ -7,7 +7,6 @@ import pyrebase
 from pages.download_page import display_download_page
 from pages.home_page import display_home
 from pages.team_formation_quiz_page import display_team_formation_quiz
-from pages.analyze_data_page import display_analyze_data
 from pages.form_groups_page import display_form_groups
 
 
@@ -86,15 +85,12 @@ if choice == "Login":
     if user:
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
-        bio = st.radio('Jump to', ['Home', 'Team Formation Quiz', 'Form Groups', 'Analyze Data', 'Download Code'])
+        bio = st.radio('Jump to', ['Home', 'Team Formation Quiz', 'Form Groups', 'Download Code'])
         if bio == 'Home':
             display_home()
 
         elif bio == 'Form Groups':
             display_form_groups(email, password)
-
-        elif bio == 'Analyze Data':
-            display_analyze_data()
 
         elif bio == 'Team Formation Quiz':
             display_team_formation_quiz(email, password)
