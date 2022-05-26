@@ -19,8 +19,7 @@ def preprocess_data(filepath, delimiter):
     # Initialize empty list
     students = []
 
-    # Preprocess data and convert all strings to ints to allow for calculation in later steps
-    print(data)
+    # Preprocess data and convert all strings to enums to allow for calculation in later steps
     data.loc[data['Bachelor/Master'] == 'bachelor', 'Bachelor/Master'] = Bachelor.bachelor.value
     data.loc[data['Bachelor/Master'] == 'master', 'Bachelor/Master'] = Bachelor.master.value
     data.loc[data['Major/Minor'] == 'major', 'Major/Minor'] = Major.major.value
@@ -83,7 +82,7 @@ def preprocess_data(filepath, delimiter):
             else:
                 schedule.append(0)
 
-        # Confirm that the list has the right length
+        # Confirm that schedule has the right length
         assert (len(schedule) == 21)
         item[matriculation_key]['Schedule'] = schedule
 

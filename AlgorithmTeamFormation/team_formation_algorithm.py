@@ -94,17 +94,8 @@ def team_formation_algorithm(delimiter, maximum_per_group, student_data, weights
             print("CASE 3")
             pt -= step_size
 
-        elif not all(len(group_configuration) >= 3) and attempt.third:
-            print("CASE 4")
-            for index, group in enumerate(group_configuration):
-                if sizes[index] > len(group):
-                    possible_pivots = group
-                    if pivots[index] in possible_pivots:
-                        possible_pivots.remove(pivots[index])
-                    pivots[index] = random.choice(possible_pivots)
-
         else:
-            print("CASE 5")
+            print("CASE 4")
             pt -= step_size
             attempt = attempt.first
 
