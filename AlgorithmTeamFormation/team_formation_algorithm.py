@@ -99,13 +99,6 @@ def team_formation_algorithm(delimiter, maximum_per_group, student_data, weights
             pt -= step_size
             attempt = attempt.first
 
-    for index, group in enumerate(group_configuration):
-        index_value = index + 1
-        print('Group number %2d' % index_value)
-        for member in group:
-            print(member)
-            print("\n")
-        print("\n")
     dictionary = {}
 
     for index, group in enumerate(group_configuration):
